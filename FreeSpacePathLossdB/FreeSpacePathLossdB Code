@@ -1,0 +1,14 @@
+
+
+function L = FreeSpacePathLossdB (d, f)
+% Ypologizei tis apoleies isxyos 
+% se apostasi d kai syxnotita f
+
+d=10000;
+f=900;
+c = 3*10^8 ;
+
+arithmitis = 4*pi*d;
+paronomastis = c./ f;
+L = 20*log10(arithmitis ./ paronomastis);
+end
