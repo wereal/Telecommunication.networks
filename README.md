@@ -14,6 +14,8 @@ To use the MATLAB codes in this repository, you need to have MATLAB installed on
 
 Once you have MATLAB installed, you can clone this repository using the following command:
 
+git clone https://github.com/wereal/Telecommunication.networks.git
+
 
 ## Usage
 
@@ -29,9 +31,7 @@ Contributions to this repository are welcome! If you have MATLAB codes related t
 2. Adding your MATLAB codes to the appropriate directories or creating new ones as needed.
 3. Making a pull request with your changes.
 
-Please ensure that your code is well-documented and follows good coding practices.
 
-## License
 
-The codes in this repository are available under the [MIT License](LICENSE). You are free to use, modify, and distribute the codes, but please refer to the license file for more details.
+
 
