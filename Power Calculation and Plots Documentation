@@ -1,0 +1,66 @@
+%% Power Calculation and Plots Documentation
+
+% Description:
+% This script calculates and plots the received power at different distances
+% using a log-loss model. It considers a single frequency and assumes an
+% access point transmitting at a specified power level. The received power
+% is calculated based on the log-loss model and plotted against the distance
+% from the remote radio head (RRH).
+
+% Clear workspace, command window, and close all figures
+clear all;
+clc;
+close all;
+
+% Set the frequency and transmit power
+f1 = 1.9;               % Frequency in GHz
+Pt = 1;                 % Transmit power in Watts
+
+% Convert transmit power to dBm
+PtdBm = 10 * log10(Pt / 1e-3);
+
+% Convert frequency to Hz and define speed of light
+f = f1 * 10^9;          % Frequency in Hz
+c = 3 * 10^8;           % Speed of light in m/s
+
+% Calculate wavelength
+lambda = c / f;
+
+% Define distance range and reference distance for free space path loss
+d = [0:10:1000];        % Distance in meters
+d_freespace = 100;      % Reference distance assumed to be in free space
+
+% Define path loss model parameters
+n = 2.6;                % Path loss exponent
+sigma = 14.1;          % Log-normal shadowing standard deviation
+
+% Calculate path loss using the log-loss model
+L = GenLog_Lossmodel_n(f, d_freespace, d, n, sigma);
+
+% Calculate the received power at the mobile receiver
+Pmob = PtdBm - L;
+
+% Plot the received power vs. distance
+plot(d, Pmob, 'LineWidth', 3);
+grid on;
+title('Rx power (assuming 1W at the Tx output)');
+grid on;
+set(gca, 'FontSize', 14);
+xlabel('Distance from RRH');
+ylabel('Received Power in dBm');
+hold on;
+
+% Generate a semilog plot of the received power vs. distance
+figure;
+semilogx(d, Pmob,'LineWidth',3);
+grid on;
+set(gca,'FontSize',14);
+xlabel('Distance in m');
+ylabel('Received Power in dBm');
+title('Semilog plot');
+
+% Author: Marios Iosifidis
+% Created: 29.5.2022
+% Last modified: 29.5.2022
+
+% End of the script
