@@ -1,0 +1,32 @@
+clear all
+clc
+close all
+for f1 = [1.9]
+   Pt = 1; % Ισχύς εκπομπής στα 2.4GHz σύμφωνα με τους κανονισμούς της ΕΕΤ
+   PtdBm = 10 * log10(Pt / 1e-3); % Ισχύς σε dB του Access Point
+   f = f1 * 10^9;
+   c = 3 * 10^8;
+   lamda = c / f;
+   d = [0:10:1000]; % Απόσταση σημείου του κινητού
+   d_freespace = 100; % Απόσταση αναφοράς που θεωρείται free space
+   n = 2.6; % Συντελεστής απόσβεσης
+   sigma = 14.1; % Διασπορά κανονικής κατανομής παραγόντων Xs
+   L = GenLog_Lossmodel_n(f, d_freespace, d, n, sigma); % Υπολογισμός απωλειών διάδοσης
+   Pmob = PtdBm - L; % Ισχύς που φτάνει στο κινητό του δέκτη, δηλαδή
+                     % ισχύς πομπού μείον τις απωλείες (free space path loss model dB)
+   plot(d, Pmob, 'LineWidth', 3);
+   grid on;
+   title('Rx power (assuming 1W at the Tx output)');
+   grid on;
+   set(gca, 'FontSize', 14);
+   xlabel('Distance from RRH');
+   ylabel('Received Power in dBm');
+   hold on;
+figure
+semilogx(d, Pmob,'LineWidth',3)
+grid on
+set(gca,'FontSize',14)
+xlabel('Distance in m')
+ylabel('Received Power in dBm')
+title('Semilog plot')
+end
